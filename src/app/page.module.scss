@@ -8,14 +8,20 @@
 }
 @font-face {
   font-family: "print";
-  src: url("../app//fonts/Rushford\ Printed.otf");
+  src: url("../app/fonts/Rushford\ Printed.otf");
+}
+@font-face {
+  font-family: "almost";
+  src: url("../app/fonts/AlmostJapaneseComic-Regular.ttf");
 }
 .main {
   width: 100dvw;
   height: 100dvh;
   display: flex;
-  border: 1px solid blue;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='97' height='97' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23EEEEEE' fill-opacity='0.11' points='120 120 60 120 90 90 120 60 120 0 120 0 60 60 0 0 0 60 30 90 60 120 120 120 '/%3E%3C/svg%3E"),  radial-gradient(#fde8e9, #ff6747ff 70%);
+  // border: 1px solid blue;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='97' height='97' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23EEEEEE' fill-opacity='0.11' points='120 120 60 120 90 90 120 60 120 0 120 0 60 60 0 0 0 60 30 90 60 120 120 120 '/%3E%3C/svg%3E"),
+    radial-gradient(#fde8e9, #f25c54 70%);
   // background: url('../../public/background.jpg');
   // background: url('../../public/background.jpg');
   // background-size: 50%;
@@ -23,14 +29,14 @@
 }
 
 .headline {
-  color: #fde8e9;
+  color: 353531;
   text: {
     align: center;
     transform: capitalize;
   }
-  line-height: 6rem;
+  line-height: 4rem;
   font: {
-    size: 6rem;
+    size: 4rem;
     family: "print";
   }
 }
@@ -42,45 +48,116 @@
   overflow-x: scroll;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
-  padding: 2rem 5rem;
+  padding: 0 5rem;
 }
-
+.page {
+  position: relative;
+  overflow: hidden;
+  max-width: 100dvw;
+}
 .item {
+  position: relative;
   scroll-snap-stop: always;
   scroll-snap-align: center;
   position: relative;
+
   // border: 1px solid black;
-  border-radius: 1rem;
+  // border-radius: 1rem;
   flex: 0 0 250px;
   aspect-ratio: 1;
-
-  
+  img {
+    object-fit: contain;
+    object-position: center;
+    // padding: 1rem;
+  }
+}
+.animation {
+  position: absolute;
+  // display: none;
+  bottom: 5rem;
+  right: -6.5rem;
+  // border: 1px solid red;
+  width: 100%;
 }
 
+.backgroundText {
+  position: absolute;
+  mix-blend-mode: soft-light;
+  color: black;
+  opacity: 0.5;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  word-break: break-all;
+  font: {
+    size: 4rem;
+    family: "almost";
+    // weight: 800;
+  }
+}
 .description {
-  padding: 0 2rem;
+  padding: 0 1rem;
+
   h2 {
+    height: 5.5rem;
     line-height: 2rem;
+    max-width: 14ch;
+    display: inline-flex;
+    align-items: flex-end;
     font: {
-      size: 1.5rem;
+      size: 2.3rem;
       family: "print";
     }
-    text-align: center;
+    // text-align: center;
+    // background: #fde8e9;
+    // border: 1px solid #353531;
+    border-radius: 0.5rem;
     color: #353531;
   }
 }
 
-.ingredients{
+.ingredients {
+  position: relative;
+  z-index: 1;
   margin-top: 1rem;
-  border: 1px solid #fde8e9;
+  // border: 1px solid #fde8e9;
   background: #fde8e9;
   border-radius: 0.5rem;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 1rem 0.5rem 0.5rem 1rem;
+  height: 110px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+  overflow: hidden;
+  span {
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+  ul {
+    list-style-type: none;
+    column-count: 3;
+    overflow: hidden;
+    column-gap: 0.5rem;
+    column-rule: 1px solid rgba(black, 0.1);
+    column-gap: 1.2rem;
+  }
+  font: {
+    family: monospace;
+    weight: 600;
+    size: 0.8rem;
+  }
+  li {
+    // border: 1px solid red;
+  }
 }
 
 .active {
   transition: all 1s;
-  animation: spin 1s ease-in-out forwards;
+  transform-origin: center;
+  animation:
+    spin 1s ease-in-out forwards,
+    pulsate 0.5s 1.5s ease-in-out forwards infinite alternate;
 }
 .inactive {
   opacity: 0.3;
@@ -96,6 +173,15 @@
   }
   100% {
     transform: rotate(0deg) scale(1);
-    filter: drop-shadow(0 0rem 1rem rgba(black, 0.4));
+    filter: drop-shadow(0 0rem 0.5rem rgba(black, 0.4));
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
   }
 }
